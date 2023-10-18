@@ -14,10 +14,13 @@
     "@tsconfig/svelte": "^5.0.0",
     "@types/d3-dsv": "^3.0.4",
     "@types/d3-fetch": "^3.0.4",
+    "prettier": "^3.0.3",
+    "prettier-plugin-svelte": "^3.0.3",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.6",
     "tslib": "^2.6.0",
     "typescript": "^5.0.2",
+    "typescript-svelte-plugin": "^0.3.34",
     "vite": "^4.4.5"
   },
   "dependencies": {
