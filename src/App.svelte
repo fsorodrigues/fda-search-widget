@@ -11,15 +11,21 @@
   // import type declaration
   import type { Data } from "./types/data";
 
+  // declare variables
+  let data: Data;
+
   // on mount, load data from csv
   onMount(async () => {
-    const data: Data[] = await loadData("/assets/data.csv");
-    console.log(data);
+    data = await loadData("/assets/data.csv");
   });
 </script>
 
 <div class="widget">
-  <SearchBar />
+  {#if data}
+    <SearchBar {data} placeholder="Search..." />
+  {:else}
+    <p>Loading...</p>
+  {/if}
 </div>
 
 <style>
