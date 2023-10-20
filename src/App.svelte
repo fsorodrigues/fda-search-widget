@@ -12,7 +12,7 @@
   import type { Data } from "./types/data";
 
   // declare variables
-  let data: Data[];
+  let data: Data;
 
   // on mount, load data from csv
   onMount(async () => {

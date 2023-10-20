@@ -3,7 +3,7 @@
 // and expose a find methord to search for a string in an
 // array of objects
 
-import type { Data, DataRow } from "../types/data";
+import type { Data } from "../types/data";
 
 function searcher(array: Data) {
   // prepare the data for search.
