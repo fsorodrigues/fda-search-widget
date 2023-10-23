@@ -3,30 +3,38 @@
   import searcher from "../utils/searcher";
 
   // import interface
-  import type { Data } from "../types/data";
+  import type { Data, DataRow } from "../types/data";
 
   export let data: Data;
   export let placeholder: string = "Search...";
 
-  let query: string;
   const search: any = searcher(data);
+
+  // declare variables
+  let query: string;
+  let searchResults: Array<DataRow>;
+
+  // declare reactive variables
+  $: if (query) searchResults = search.find(query);
 </script>
 
 <div class="search-bar">
   <input
     type="search"
+    autocomplete="off"
     {placeholder}
     aria-label="Search"
-    on:input={() => {
-      // console.log(search.find("aspirin"));
-      console.log("here");
-    }}
-    on:change={() => {
-      // console.log(search.find("aspirin"));
-      console.log("here");
-    }}
     bind:value={query}
   />
+  <div>
+    {#if searchResults && searchResults.length && query.length >= 2}
+      {#each searchResults as result}
+        <p>{result.drug}</p>
+      {/each}
+    {:else if query && query.length >= 2}
+      <p>No results found</p>
+    {/if}
+  </div>
 </div>
 
 <style>
@@ -36,12 +44,11 @@
 
   .search-bar input {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: all 0.2s ease-in-out;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
   }
 
   .search-bar input:focus {

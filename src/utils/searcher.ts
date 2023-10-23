@@ -16,7 +16,7 @@ function searcher(array: Data): Searcher {
     find: (s: string) => {
       // search the array for the string
       // and return the results
-      console.log(s, array);
+      console.log(s);
 
       return array.filter((item) =>
         item.drug.toLowerCase().includes(s.toLowerCase())
