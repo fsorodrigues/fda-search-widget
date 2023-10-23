@@ -1,6 +1,6 @@
 import type { DSVParsedArray } from "d3-dsv";
 
-export interface DataRow {
+interface DataRow {
   drug_slug: string;
   drug: string;
   flag_1: boolean;
@@ -8,3 +8,5 @@ export interface DataRow {
 }
 
 interface Data extends DSVParsedArray<T> {}
+
+export { DataRow, Data };
