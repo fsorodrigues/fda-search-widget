@@ -19,7 +19,7 @@ function searcher(array: Data): Searcher {
       console.log(s, array);
 
       return array.filter((item) =>
-        item.slug.toLowerCase().includes(s.toLowerCase())
+        item.drug.toLowerCase().includes(s.toLowerCase())
       );
     },
   };
