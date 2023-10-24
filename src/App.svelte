@@ -10,6 +10,10 @@
 
   // import type declaration
   import type { Data } from "./types/data";
+  import Condition from "./lib/Condition.svelte";
+  import Warning from "./lib/Warning.svelte";
+  import Testing from "./lib/Testing.svelte";
+  import Reasons from "./lib/Reasons.svelte";
 
   // declare variables
   let data: Data;
@@ -26,6 +30,11 @@
   {:else}
     <p>Loading...</p>
   {/if}
+
+  <Condition />
+  <Warning />
+  <Testing />
+  <Reasons />
 </div>
 
 <style>
