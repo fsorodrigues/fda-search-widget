@@ -1,3 +1,5 @@
-<script lang="ts"></script>
+<script lang="ts">
+  import "./global.css";
+</script>
 
-<div></div>
+<div class="row"></div>
