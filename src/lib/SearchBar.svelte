@@ -13,9 +13,16 @@
   // declare variables
   let query: string;
   let searchResults: Array<DataRow>;
+  let selectedResult: DataRow;
 
   // declare reactive variables
   $: if (query) searchResults = search.find(query);
+
+  // function handleSelectResult(result: DataRow) {
+  //   console.log(result);
+  //   query = result.drug;
+  //   selectedResult = result;
+  // }
 </script>
 
 <div class="search-bar">
@@ -26,13 +33,13 @@
     aria-label="Search"
     bind:value={query}
   />
-  <div>
+  <div class="search-options">
     {#if searchResults && searchResults.length && query.length >= 2}
       {#each searchResults as result}
-        <p>{result.drug}</p>
+        <p class="option">{result.drug}</p>
       {/each}
     {:else if query && query.length >= 2}
-      <p>No results found</p>
+      <p class="no-results">No results found</p>
     {/if}
   </div>
 </div>
@@ -54,5 +61,13 @@
   .search-bar input:focus {
     outline: none;
     border-color: #000;
+  }
+
+  .option {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .option.option:last-child {
+    border-bottom: none;
   }
 </style>
