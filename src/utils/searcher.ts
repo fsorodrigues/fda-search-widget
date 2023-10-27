@@ -3,11 +3,13 @@
 // and expose a find methord to search for a string in an
 // array of objects
 
+// import fuzzysort
+import fuzzysort from "fuzzysort";
+
 // import types
 import type { Data } from "../types/data";
 
 function searcher(array: Data): any {
-  return array;
   // use fuzzysort to prepare data for fuzzy searching
   return array.map((d) => ({
     ...d,
@@ -16,11 +18,13 @@ function searcher(array: Data): any {
 }
 
 function finder(store: any) {
-  //
   const searchTerm = store.search;
   if (searchTerm.length > 2) {
-    console.log(searchTerm);
-    store.filtered = store.data;
+    store.filtered = fuzzysort.go(searchTerm, store.data, {
+      key: "prepared",
+      limit: 5,
+      threshold: -10000,
+    });
   }
 }
 
