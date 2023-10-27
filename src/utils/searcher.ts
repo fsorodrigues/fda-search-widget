@@ -8,6 +8,11 @@ import type { Data } from "../types/data";
 
 function searcher(array: Data): any {
   return array;
+  // use fuzzysort to prepare data for fuzzy searching
+  return array.map((d) => ({
+    ...d,
+    prepared: fuzzysort.prepare(d.drug),
+  }));
 }
 
 function finder(store: any) {
