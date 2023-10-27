@@ -9,10 +9,11 @@
   import { searcher, finder } from "../utils/searcher";
 
   // import interface
-  import type { Data } from "../types/data";
+  import type { Data, DataRow } from "../types/data";
 
   export let data: Data;
   export let placeholder: string = "Search...";
+  export let selected: DataRow;
 
   const searchStore: any = createSearchStore(searcher(data));
   const unsubscribe = searchStore.subscribe((d: any) =>
@@ -24,7 +25,7 @@
   });
 
   // $: console.log($searchStore.filtered);
-  $: console.log($searchStore.selected);
+  $: selected = $searchStore.selected;
 </script>
 
 <div class="search-bar">
