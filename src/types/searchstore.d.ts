@@ -3,5 +3,6 @@ export interface SearchStoreModel<
 > {
   data: T[];
   filtered: T[];
+  selected: T | null;
   search: string;
 }
