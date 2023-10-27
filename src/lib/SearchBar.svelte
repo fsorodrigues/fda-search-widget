@@ -9,7 +9,7 @@
   import { finder } from "../utils/searcher";
 
   // import interface
-  import type { Data, DataRow } from "../types/data";
+  import type { Data } from "../types/data";
 
   export let data: Data;
   export let placeholder: string = "Search...";
@@ -23,50 +23,19 @@
     unsubscribe();
   });
 
-  $: console.log($searchStore);
-
-  // const search = searcher(data);
+  $: console.log($searchStore.filtered);
 </script>
 
 <div class="search-bar">
   <input
     aria-label="Search"
     type="search"
-    autocomplete="off"
     {placeholder}
     bind:value={$searchStore.search}
   />
-  <!-- on:change={() => { -->
-  <!--   console.log("here"); -->
-  <!--   // search.find("aspirin"); -->
-  <!-- }} -->
-  {data.length}
+  {#each $searchStore.filtered as option}
+    <div class="option">
+      <span>{option.drug}</span>
+    </div>
+  {/each}
 </div>
-
-<style>
-  .search-bar {
-    width: 100%;
-  }
-
-  .search-bar input {
-    width: 100%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #ccc;
-    padding: 5px 0;
-  }
-
-  .search-bar input:focus {
-    outline: none;
-    border-color: #000;
-  }
-
-  .option {
-    border-bottom: 1px solid #ccc;
-  }
-
-  .option.option:last-child {
-    border-bottom: none;
-  }
-</style>
