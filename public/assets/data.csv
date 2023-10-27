@@ -1,4 +1,9 @@
-drug_slug,drug,flag_1,flag_2
-aspirin,Aspirin,true,false
-paracetamol,Paracetamol,true,false
-ibuprofen,Ibuprofen,true,false
+drug_slug,drug,treatment_condition,url,black_box,flag_evidence,flag_blinding,flag_replication,flag_control,flag_surrogate
+aspirin,Aspirin,PLACEHOLDER,https://cdc.gov,Y,true,true,true,true,false
+paracetamol,Paracetamol,PLACEHOLDER,https://cdc.gov,N,true,true,true,true,false
+paracetamol,Paracetamol2,PLACEHOLDER,https://cdc.gov,N,true,true,true,true,false
+paracetamol,Paracetamol3,PLACEHOLDER,https://cdc.gov,N,true,true,true,true,false
+aracetamol,Paracetamol4,PLACEHOLDER,https://cdc.gov,N,true,true,true,true,false
+paracetamol,Paracetamol5,PLACEHOLDER,https://cdc.gov,N,true,true,true,true,false
+ibuprofen,Ibuprofen,PLACEHOLDER,https://cdc.gov,A,false,true,true,true,false
+nexo-brid,NexoBrid,PLACEHOLDER,https://cdc.gov,W,false,false,false,false,true

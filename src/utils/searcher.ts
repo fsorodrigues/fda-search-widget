@@ -3,24 +3,20 @@
 // and expose a find methord to search for a string in an
 // array of objects
 
+// import types
 import type { Data } from "../types/data";
 
-function searcher(array: Data) {
-  // prepare the data for search.
-  // this section will come in handy later on
-  // when we implement a fuzzy search
-  //
-  return {
-    find: (s: string) => {
-      // search the array for the string
-      // and return the results
-      console.log(s, array);
-
-      return array.filter((item) =>
-        item.slug.toLowerCase().includes(s.toLowerCase())
-      );
-    },
-  };
+function searcher(array: Data): any {
+  return array;
 }
 
-export default searcher;
+function finder(store: any) {
+  //
+  const searchTerm = store.search;
+  if (searchTerm.length > 2) {
+    console.log(searchTerm);
+    store.filtered = store.data;
+  }
+}
+
+export { searcher, finder };
