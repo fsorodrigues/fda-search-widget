@@ -7,22 +7,17 @@
 import type { Data } from "../types/data";
 import type { Searcher } from "../types/searcher";
 
-function searcher(array: Data): Searcher {
-  // prepare the data for search.
-  // this section will come in handy later on
-  // when we implement a fuzzy search
-  //
-  return {
-    find: (s: string) => {
-      // search the array for the string
-      // and return the results
-      console.log(s);
-
-      return array.filter((item) =>
-        item.drug.toLowerCase().includes(s.toLowerCase())
-      );
-    },
-  };
+function searcher(array: Data): any {
+  return array;
 }
 
-export default searcher;
+function finder(store: any) {
+  //
+  const searchTerm = store.search;
+  if (searchTerm.length > 2) {
+    console.log(searchTerm);
+    store.filtered = store.data[0];
+  }
+}
+
+export { searcher, finder };

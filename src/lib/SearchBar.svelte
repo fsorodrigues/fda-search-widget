@@ -1,6 +1,12 @@
 <script lang="ts">
+  // import from node_modules
+  import { onDestroy } from "svelte";
+
+  // import local modules
+  import { createSearchStore } from "../stores/search";
+
   // import searcher
-  import searcher from "../utils/searcher";
+  import { finder } from "../utils/searcher";
 
   // import interface
   import type { Data, DataRow } from "../types/data";
@@ -8,40 +14,33 @@
   export let data: Data;
   export let placeholder: string = "Search...";
 
-  const search: any = searcher(data);
+  const searchStore: any = createSearchStore(data);
+  const unsubscribe = searchStore.subscribe((d: any) =>
+    finder(d)
+  );
 
-  // declare variables
-  let query: string;
-  let searchResults: Array<DataRow>;
-  let selectedResult: DataRow;
+  onDestroy(() => {
+    unsubscribe();
+  });
 
-  // declare reactive variables
-  $: if (query) searchResults = search.find(query);
+  $: console.log($searchStore);
 
-  // function handleSelectResult(result: DataRow) {
-  //   console.log(result);
-  //   query = result.drug;
-  //   selectedResult = result;
-  // }
+  // const search = searcher(data);
 </script>
 
 <div class="search-bar">
   <input
+    aria-label="Search"
     type="search"
     autocomplete="off"
     {placeholder}
-    aria-label="Search"
-    bind:value={query}
+    bind:value={$searchStore.search}
   />
-  <div class="search-options">
-    {#if searchResults && searchResults.length && query.length >= 2}
-      {#each searchResults as result}
-        <p class="option">{result.drug}</p>
-      {/each}
-    {:else if query && query.length >= 2}
-      <p class="no-results">No results found</p>
-    {/if}
-  </div>
+  <!-- on:change={() => { -->
+  <!--   console.log("here"); -->
+  <!--   // search.find("aspirin"); -->
+  <!-- }} -->
+  {data.length}
 </div>
 
 <style>
