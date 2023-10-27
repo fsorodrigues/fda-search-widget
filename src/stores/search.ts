@@ -14,6 +14,7 @@ export const createSearchStore = <
   >({
     data: data,
     filtered: [],
+    selected: null,
     search: "",
   });
 

@@ -6,7 +6,7 @@
   import { createSearchStore } from "../stores/search";
 
   // import searcher
-  import { finder } from "../utils/searcher";
+  import { searcher, finder } from "../utils/searcher";
 
   // import interface
   import type { Data } from "../types/data";
@@ -14,7 +14,7 @@
   export let data: Data;
   export let placeholder: string = "Search...";
 
-  const searchStore: any = createSearchStore(data);
+  const searchStore: any = createSearchStore(searcher(data));
   const unsubscribe = searchStore.subscribe((d: any) =>
     finder(d)
   );
@@ -23,7 +23,8 @@
     unsubscribe();
   });
 
-  $: console.log($searchStore.filtered);
+  // $: console.log($searchStore.filtered);
+  $: console.log($searchStore.selected);
 </script>
 
 <div class="search-bar">
@@ -33,9 +34,27 @@
     {placeholder}
     bind:value={$searchStore.search}
   />
-  {#each $searchStore.filtered as option}
-    <div class="option">
-      <span>{option.drug}</span>
-    </div>
-  {/each}
+  {#if !$searchStore.selected}
+    {#each $searchStore.filtered as option, i}
+      <div
+        class="option"
+        class:highlight={i === 0}
+        on:click={() => {
+          $searchStore.selected = option.obj;
+          $searchStore.search = option.target;
+        }}
+        on:keydown={() => console.log(option.target)}
+        tabindex="0"
+        role="button"
+      >
+        <span>{i} {option.obj.drug}</span>
+      </div>
+    {/each}
+  {/if}
 </div>
+
+<style>
+  .highlight {
+    background-color: #f5f5f5;
+  }
+</style>
