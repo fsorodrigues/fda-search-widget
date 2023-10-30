@@ -26,6 +26,7 @@
 
   // $: console.log($searchStore.filtered);
   $: selected = $searchStore.selected;
+  $: searching = false;
 </script>
 
 <div class="search-bar">
@@ -34,7 +35,11 @@
     type="search"
     {placeholder}
     bind:value={$searchStore.search}
+    on:input={() => {
+      searching = true;
+    }}
   />
+  {#if searching}
     <div class="suggestions">
       {#each $searchStore.filtered as option, i}
         <div
@@ -43,6 +48,7 @@
           on:click={() => {
             $searchStore.selected = option.obj;
             $searchStore.search = option.target;
+            searching = false;
           }}
           on:keydown={() => console.log(option.target)}
           tabindex="0"
@@ -59,6 +65,11 @@
   .search-bar {
     --search-bar-height: 35px;
     position: relative;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* width: 100%; */
   }
 
   .search-bar input {
