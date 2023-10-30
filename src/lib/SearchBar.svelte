@@ -27,6 +27,7 @@
   function clearSearch() {
     $searchStore.search = "";
     $searchStore.filtered = [];
+    suggestedIndex = 0;
   }
   function arrowDown() {
     suggestedIndex++;
