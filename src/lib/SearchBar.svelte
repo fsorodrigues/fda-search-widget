@@ -39,6 +39,22 @@
       searching = true;
     }}
   />
+<div class="search">
+  <div class="search-bar">
+    {#if true}
+      <div
+        class="reset"
+        on:click={clearSearch}
+        on:keydown={(ev) => {
+          if (ev.key === "Enter") clearSearch();
+        }}
+        role="button"
+        tabindex="0"
+      >
+        X
+      </div>
+    {/if}
+  </div>
   {#if searching}
     <div class="suggestions">
       {#each $searchStore.filtered as option, i}
@@ -74,6 +90,13 @@
 
   .search-bar input {
     height: var(--search-bar-height);
+    width: 100%;
+  }
+
+  .search-bar .reset {
+    position: absolute;
+    top: 0;
+    right: 2px;
   }
 
   .suggestions {
