@@ -42,6 +42,7 @@
   // $: console.log($searchStore.filtered);
   $: selected = $searchStore.selected;
   $: searching = false;
+  $: suggestedIndex = 0;
 </script>
 
 <div class="search">
@@ -92,7 +93,7 @@
       {#each $searchStore.filtered as option, i}
         <div
           class="option"
-          class:highlight={i === 0}
+          class:highlight={i === suggestedIndex}
           on:click={() => {
             $searchStore.selected = option.obj;
             $searchStore.search = option.target;
