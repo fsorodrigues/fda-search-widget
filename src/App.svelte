@@ -9,7 +9,7 @@
   import SearchBar from "./lib/SearchBar.svelte";
 
   // import type declaration
-  import type { Data } from "./types/data";
+  import type { Data, DataRow } from "./types/data";
   import Condition from "./lib/Condition.svelte";
   import Warning from "./lib/Warning.svelte";
   import Testing from "./lib/Testing.svelte";
@@ -17,24 +17,37 @@
 
   // declare variables
   let data: Data;
+  let selected: DataRow;
+  let reasonProperties: (keyof DataRow)[] = [
+    "flag_blinding",
+    "flag_replication",
+    "flag_control",
+    "flag_surrogate",
+  ];
 
   // on mount, load data from csv
   onMount(async () => {
     data = await loadData("/assets/data.csv");
   });
+
+  $: hasSelected = selected && selected.hasOwnProperty("drug");
 </script>
 
 <div class="widget">
   {#if data}
-    <SearchBar {data} placeholder="Search..." />
+    <SearchBar {data} placeholder="Search..." bind:selected />
   {:else}
     <p>Loading...</p>
   {/if}
 
-  <Condition />
-  <Warning />
-  <Testing />
-  <Reasons />
+  <div class="content">
+    {#if hasSelected}
+      <Condition value={selected.treatment_condition} />
+      <Warning value={selected.black_box} />
+      <Testing value={selected.flag_evidence} />
+      <Reasons value={selected} properties={reasonProperties} />
+    {/if}
+  </div>
 </div>
 
 <style>

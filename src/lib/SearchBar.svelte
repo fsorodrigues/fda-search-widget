@@ -9,10 +9,11 @@
   import { searcher, finder } from "../utils/searcher";
 
   // import interface
-  import type { Data } from "../types/data";
+  import type { Data, DataRow } from "../types/data";
 
   export let data: Data;
   export let placeholder: string = "Search...";
+  export let selected: DataRow;
 
   const searchStore: any = createSearchStore(searcher(data));
   const unsubscribe = searchStore.subscribe((d: any) =>
@@ -24,7 +25,8 @@
   });
 
   // $: console.log($searchStore.filtered);
-  $: console.log($searchStore.selected);
+  $: selected = $searchStore.selected;
+  $: searching = false;
 </script>
 
 <div class="search-bar">
@@ -33,27 +35,56 @@
     type="search"
     {placeholder}
     bind:value={$searchStore.search}
+    on:input={() => {
+      searching = true;
+    }}
   />
-  {#if !$searchStore.selected}
-    {#each $searchStore.filtered as option, i}
-      <div
-        class="option"
-        class:highlight={i === 0}
-        on:click={() => {
-          $searchStore.selected = option.obj;
-          $searchStore.search = option.target;
-        }}
-        on:keydown={() => console.log(option.target)}
-        tabindex="0"
-        role="button"
-      >
-        <span>{i} {option.obj.drug}</span>
-      </div>
-    {/each}
+  {#if searching}
+    <div class="suggestions">
+      {#each $searchStore.filtered as option, i}
+        <div
+          class="option"
+          class:highlight={i === 0}
+          on:click={() => {
+            $searchStore.selected = option.obj;
+            $searchStore.search = option.target;
+            searching = false;
+          }}
+          on:keydown={() => console.log(option.target)}
+          tabindex="0"
+          role="button"
+        >
+          <span>{i} {option.obj.drug}</span>
+        </div>
+      {/each}
+    </div>
   {/if}
 </div>
 
 <style>
+  .search-bar {
+    --search-bar-height: 35px;
+    position: relative;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* width: 100%; */
+  }
+
+  .search-bar input {
+    height: var(--search-bar-height);
+  }
+
+  .suggestions {
+    position: absolute;
+    top: var(--search-bar-height);
+  }
+
+  .option {
+    background-color: #fff;
+  }
+
   .highlight {
     background-color: #f5f5f5;
   }
