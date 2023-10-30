@@ -24,23 +24,55 @@
     unsubscribe();
   });
 
+  function clearSearch() {
+    $searchStore.search = "";
+    $searchStore.filtered = [];
+  }
+  function arrowDown() {
+    suggestedIndex++;
+    if (suggestedIndex >= $searchStore.filtered.length)
+      suggestedIndex = 0;
+  }
+  function arrowUp() {
+    suggestedIndex--;
+    if (suggestedIndex < 0)
+      suggestedIndex = $searchStore.filtered.length - 1;
+  }
+
   // $: console.log($searchStore.filtered);
   $: selected = $searchStore.selected;
   $: searching = false;
 </script>
 
-<div class="search-bar">
-  <input
-    aria-label="Search"
-    type="search"
-    {placeholder}
-    bind:value={$searchStore.search}
-    on:input={() => {
-      searching = true;
-    }}
-  />
 <div class="search">
   <div class="search-bar">
+    <input
+      aria-label="Search"
+      type="text"
+      {placeholder}
+      bind:value={$searchStore.search}
+      on:input={() => {
+        searching = true;
+      }}
+      on:keydown={(ev) => {
+        if (ev.key === "Escape") clearSearch();
+        if (ev.key === "ArrowDown") {
+          ev.preventDefault();
+          arrowDown();
+        }
+        if (ev.key === "ArrowUp") {
+          ev.preventDefault();
+          arrowUp();
+        }
+        if (ev.key === "Enter") {
+          $searchStore.selected =
+            $searchStore.filtered[suggestedIndex].obj;
+          $searchStore.search =
+            $searchStore.filtered[suggestedIndex].target;
+          searching = false;
+        }
+      }}
+    />
     {#if true}
       <div
         class="reset"
@@ -85,7 +117,6 @@
     /* flex-direction: column; */
     /* justify-content: center; */
     /* align-items: center; */
-    /* width: 100%; */
   }
 
   .search-bar input {
