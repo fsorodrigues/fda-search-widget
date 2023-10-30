@@ -18,6 +18,12 @@
   // declare variables
   let data: Data;
   let selected: DataRow;
+  let reasonProperties: (keyof DataRow)[] = [
+    "flag_blinding",
+    "flag_replication",
+    "flag_control",
+    "flag_surrogate",
+  ];
 
   // on mount, load data from csv
   onMount(async () => {
@@ -34,12 +40,14 @@
     <p>Loading...</p>
   {/if}
 
-  {#if hasSelected}
-    <Condition value={selected.treatment_condition} />
-    <Warning />
-    <Testing />
-    <Reasons />
-  {/if}
+  <div class="content">
+    {#if hasSelected}
+      <Condition value={selected.treatment_condition} />
+      <Warning value={selected.black_box} />
+      <Testing value={selected.flag_evidence} />
+      <Reasons value={selected} properties={reasonProperties} />
+    {/if}
+  </div>
 </div>
 
 <style>
