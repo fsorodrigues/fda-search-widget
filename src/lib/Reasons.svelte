@@ -3,6 +3,7 @@
   import "./global.css";
 
   // properties
+  export let properties: (keyof DataRow)[];
   export let value: DataRow;
 </script>
 
