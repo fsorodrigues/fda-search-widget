@@ -1,6 +1,10 @@
-const mapper: Map<boolean, string> = new Map([
-  [true, "Yes"],
-  [false, "No"],
+import type { FlagMap } from "../types/mappers";
+
+const mapper: FlagMap = new Map([
+  ["Y", "Yes"],
+  ["N", "No"],
+  ["A", "Added after approval"],
+  ["W", "Withdrawn after approval"],
 ]);
 
 export default mapper;
