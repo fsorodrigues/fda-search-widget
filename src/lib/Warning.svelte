@@ -1,4 +1,6 @@
 <script lang="ts">
+  // import mapper
+  import mapper from "../mappers/warning";
   import "./global.css";
 
   // properties
@@ -7,7 +9,7 @@
 
 <div class="row">
   <div class="label">Condition treated</div>
-  <div class="value">{value}</div>
+  <div class="value box">{mapper.get(value)}</div>
 </div>
 
 <style>
