@@ -6,7 +6,7 @@
   import "./global.css";
 
   // properties
-  export let value: boolean;
+  export let value: string;
 </script>
 
 <div class="row">
