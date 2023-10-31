@@ -22,7 +22,7 @@
     "flag_blinding",
     "flag_replication",
     "flag_control",
-    "flag_surrogate",
+    "flag_clinical",
   ];
 
   // on mount, load data from csv
