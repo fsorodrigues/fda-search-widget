@@ -5,6 +5,9 @@
   // import local modules
   import { createSearchStore } from "../stores/search";
 
+  // import icons
+  import X from "../icons/x.svelte";
+
   // import searcher
   import { searcher, finder } from "../utils/searcher";
 
@@ -24,27 +27,86 @@
     unsubscribe();
   });
 
-  // $: console.log($searchStore.filtered);
+  function setFocusToTextBox() {
+    document.getElementById("search-input")!.focus();
+  }
+
+  function setIndex(i: number) {
+    suggestedIndex = i;
+  }
+
+  function clearSearch() {
+    $searchStore.search = "";
+    $searchStore.filtered = [];
+    setIndex(0);
+    setFocusToTextBox();
+  }
+  function arrowDown() {
+    suggestedIndex++;
+    if (suggestedIndex >= $searchStore.filtered.length)
+      setIndex(0);
+  }
+  function arrowUp() {
+    suggestedIndex--;
+    if (suggestedIndex < 0)
+      setIndex($searchStore.filtered.length - 1);
+  }
+
   $: selected = $searchStore.selected;
   $: searching = false;
+  $: suggestedIndex = 0;
 </script>
 
-<div class="search-bar">
-  <input
-    aria-label="Search"
-    type="search"
-    {placeholder}
-    bind:value={$searchStore.search}
-    on:input={() => {
-      searching = true;
-    }}
-  />
+<div class="search">
+  <div class="search-bar">
+    <input
+      id="search-input"
+      aria-label="Search"
+      type="text"
+      {placeholder}
+      bind:value={$searchStore.search}
+      on:input={() => {
+        searching = true;
+      }}
+      on:keydown={(ev) => {
+        if (ev.key === "Escape") clearSearch();
+        if (ev.key === "ArrowDown") {
+          ev.preventDefault();
+          arrowDown();
+        }
+        if (ev.key === "ArrowUp") {
+          ev.preventDefault();
+          arrowUp();
+        }
+        if (ev.key === "Enter") {
+          $searchStore.selected =
+            $searchStore.filtered[suggestedIndex].obj;
+          $searchStore.search =
+            $searchStore.filtered[suggestedIndex].target;
+          searching = false;
+        }
+      }}
+    />
+    {#if $searchStore.search !== ""}
+      <div
+        class="reset"
+        on:click={clearSearch}
+        on:keydown={(ev) => {
+          if (ev.key === "Enter") clearSearch();
+        }}
+        role="button"
+        tabindex="0"
+      >
+        <X />
+      </div>
+    {/if}
+  </div>
   {#if searching}
     <div class="suggestions">
       {#each $searchStore.filtered as option, i}
         <div
           class="option"
-          class:highlight={i === 0}
+          class:highlight={i === suggestedIndex}
           on:click={() => {
             $searchStore.selected = option.obj;
             $searchStore.search = option.target;
@@ -65,15 +127,18 @@
   .search-bar {
     --search-bar-height: 35px;
     position: relative;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* width: 100%; */
   }
 
   .search-bar input {
     height: var(--search-bar-height);
+    width: 100%;
+  }
+
+  .search-bar .reset {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2px;
   }
 
   .suggestions {

@@ -22,7 +22,7 @@
     "flag_blinding",
     "flag_replication",
     "flag_control",
-    "flag_surrogate",
+    "flag_clinical",
   ];
 
   // on mount, load data from csv
@@ -51,4 +51,9 @@
 </div>
 
 <style>
+  .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
 </style>

@@ -5,4 +5,11 @@
   export let value: string;
 </script>
 
-<div class="row">{value}</div>
+<div class="row">
+  <div class="label">Condition treated</div>
+  <div class="value">
+    <span>{value}</span>
+  </div>
+</div>
+
+<style></style>
