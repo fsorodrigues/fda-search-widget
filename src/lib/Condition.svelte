@@ -7,7 +7,9 @@
 
 <div class="row">
   <div class="label">Condition treated</div>
-  <div class="value">{value}</div>
+  <div class="value">
+    <span>{value}</span>
+  </div>
 </div>
 
 <style>

@@ -8,7 +8,7 @@
 </script>
 
 <div class="row">
-  <div class="label">Condition treated</div>
+  <div class="label">Black box warning</div>
   <div class="value box">{mapper.get(value)}</div>
 </div>
 

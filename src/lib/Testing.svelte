@@ -8,7 +8,7 @@
 </script>
 
 <div class="row">
-  <div class="label">Condition treated</div>
+  <div class="label">Approved based on rigourous testing?</div>
   <div class="value box">{mapper.get(value)}</div>
 </div>
 
