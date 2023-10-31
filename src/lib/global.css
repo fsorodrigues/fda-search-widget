@@ -1,3 +1,17 @@
 .row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 100px 100px;
+  column-gap: 10px;
+}
+
+.row .label {
+  grid-column: 1 / span 1;
+}
+
+.row .value {
+  grid-column: 2 / span last-line;
+}
+
+.row .box {
+  min-height: 90px;
 }

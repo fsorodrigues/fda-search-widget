@@ -1,6 +1,8 @@
 <script lang="ts">
   // import mapper
   import mapper from "../mappers/warning";
+
+  // import styles
   import "./global.css";
 
   // properties
@@ -13,16 +15,7 @@
 </div>
 
 <style>
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .row .label {
-    grid-column: 1 / span 1;
-  }
-
-  .row .value {
-    grid-column: 2 / span 1;
+  .value {
+    background-color: green;
   }
 </style>

@@ -1,7 +1,11 @@
 <script lang="ts">
   // import mapper
   import { mapOpening, mapReasons } from "../mappers/reasons";
+
+  // import types
   import type { DataRow } from "../types/data";
+
+  // import styles
   import "./global.css";
 
   // properties
@@ -23,3 +27,20 @@
     {/each}
   </div>
 </div>
+
+<style>
+  .opening {
+    font-weight: bold;
+    grid-column: 1 / span last-line;
+    grid-row: 1 / span 1;
+  }
+
+  .reasons {
+    grid-column: 1 / span last-line;
+    grid-row: 2 / span 1;
+  }
+
+  .reasons .flag:not(:last-of-type):after {
+    content: ". ";
+  }
+</style>

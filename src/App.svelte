@@ -51,4 +51,9 @@
 </div>
 
 <style>
+  .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
 </style>
