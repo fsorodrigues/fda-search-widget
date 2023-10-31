@@ -46,7 +46,7 @@
     grid-row: 2 / span 1;
   }
 
-  .reasons .flag:not(:last-of-type):after {
+  .reasons .flag:after {
     content: ". ";
   }
 </style>
