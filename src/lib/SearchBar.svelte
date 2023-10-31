@@ -24,23 +24,57 @@
     unsubscribe();
   });
 
+  function clearSearch() {
+    $searchStore.search = "";
+    $searchStore.filtered = [];
+    suggestedIndex = 0;
+  }
+  function arrowDown() {
+    suggestedIndex++;
+    if (suggestedIndex >= $searchStore.filtered.length)
+      suggestedIndex = 0;
+  }
+  function arrowUp() {
+    suggestedIndex--;
+    if (suggestedIndex < 0)
+      suggestedIndex = $searchStore.filtered.length - 1;
+  }
+
   // $: console.log($searchStore.filtered);
   $: selected = $searchStore.selected;
   $: searching = false;
+  $: suggestedIndex = 0;
 </script>
 
-<div class="search-bar">
-  <input
-    aria-label="Search"
-    type="search"
-    {placeholder}
-    bind:value={$searchStore.search}
-    on:input={() => {
-      searching = true;
-    }}
-  />
 <div class="search">
   <div class="search-bar">
+    <input
+      aria-label="Search"
+      type="text"
+      {placeholder}
+      bind:value={$searchStore.search}
+      on:input={() => {
+        searching = true;
+      }}
+      on:keydown={(ev) => {
+        if (ev.key === "Escape") clearSearch();
+        if (ev.key === "ArrowDown") {
+          ev.preventDefault();
+          arrowDown();
+        }
+        if (ev.key === "ArrowUp") {
+          ev.preventDefault();
+          arrowUp();
+        }
+        if (ev.key === "Enter") {
+          $searchStore.selected =
+            $searchStore.filtered[suggestedIndex].obj;
+          $searchStore.search =
+            $searchStore.filtered[suggestedIndex].target;
+          searching = false;
+        }
+      }}
+    />
     {#if true}
       <div
         class="reset"
@@ -60,7 +94,7 @@
       {#each $searchStore.filtered as option, i}
         <div
           class="option"
-          class:highlight={i === 0}
+          class:highlight={i === suggestedIndex}
           on:click={() => {
             $searchStore.selected = option.obj;
             $searchStore.search = option.target;
@@ -85,7 +119,6 @@
     /* flex-direction: column; */
     /* justify-content: center; */
     /* align-items: center; */
-    /* width: 100%; */
   }
 
   .search-bar input {
