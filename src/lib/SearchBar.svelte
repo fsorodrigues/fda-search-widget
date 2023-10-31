@@ -27,23 +27,31 @@
     unsubscribe();
   });
 
+  function setFocusToTextBox() {
+    document.getElementById("search-input")!.focus();
+  }
+
+  function setIndex(i: number) {
+    suggestedIndex = i;
+  }
+
   function clearSearch() {
     $searchStore.search = "";
     $searchStore.filtered = [];
-    suggestedIndex = 0;
+    setIndex(0);
+    setFocusToTextBox();
   }
   function arrowDown() {
     suggestedIndex++;
     if (suggestedIndex >= $searchStore.filtered.length)
-      suggestedIndex = 0;
+      setIndex(0);
   }
   function arrowUp() {
     suggestedIndex--;
     if (suggestedIndex < 0)
-      suggestedIndex = $searchStore.filtered.length - 1;
+      setIndex($searchStore.filtered.length - 1);
   }
 
-  // $: console.log($searchStore.filtered);
   $: selected = $searchStore.selected;
   $: searching = false;
   $: suggestedIndex = 0;
@@ -52,6 +60,7 @@
 <div class="search">
   <div class="search-bar">
     <input
+      id="search-input"
       aria-label="Search"
       type="text"
       {placeholder}
@@ -78,7 +87,7 @@
         }
       }}
     />
-    {#if true}
+    {#if $searchStore.search !== ""}
       <div
         class="reset"
         on:click={clearSearch}
