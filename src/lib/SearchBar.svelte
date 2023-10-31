@@ -5,6 +5,9 @@
   // import local modules
   import { createSearchStore } from "../stores/search";
 
+  // import icons
+  import X from "../icons/x.svelte";
+
   // import searcher
   import { searcher, finder } from "../utils/searcher";
 
@@ -85,7 +88,7 @@
         role="button"
         tabindex="0"
       >
-        X
+        <X />
       </div>
     {/if}
   </div>
@@ -115,10 +118,6 @@
   .search-bar {
     --search-bar-height: 35px;
     position: relative;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* align-items: center; */
   }
 
   .search-bar input {
@@ -128,7 +127,8 @@
 
   .search-bar .reset {
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     right: 2px;
   }
 
