@@ -10,7 +10,7 @@ interface DataRow {
   flag_blinding: boolean;
   flag_replication: boolean;
   flag_control: boolean;
-  flag_surrogate: boolean;
+  flag_clinical: boolean;
   prepared?: any;
 }
 
