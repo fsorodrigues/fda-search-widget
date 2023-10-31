@@ -1,9 +1,5 @@
-drug_slug,drug,treatment_condition,url,black_box,flag_evidence,flag_blinding,flag_replication,flag_control,flag_surrogate
-aspirin,Aspirin,PLACEHOLDER,https://cdc.gov,true,true,true,true,true,false
-paracetamol,Paracetamol,PLACEHOLDER,https://cdc.gov,false,true,true,true,true,false
-paracetamol,Paracetamol2,PLACEHOLDER,https://cdc.gov,false,true,true,true,true,false
-paracetamol,Paracetamol3,PLACEHOLDER,https://cdc.gov,false,true,true,true,true,false
-aracetamol,Paracetamol4,PLACEHOLDER,https://cdc.gov,false,true,true,true,true,false
-paracetamol,Paracetamol5,PLACEHOLDER,https://cdc.gov,false,true,true,true,true,false
-ibuprofen,Ibuprofen,PLACEHOLDER,https://cdc.gov,false,false,true,true,true,false
-nexo-brid,NexoBrid,PLACEHOLDER,https://cdc.gov,false,false,false,false,false,true
+drug_slug,drug,treatment_condition,url,black_box,flag_evidence,flag_blinding,flag_replication,flag_control,flag_clinical
+nexobrid,NexoBrid,Diabetic Foot Ulcers,https://cdc.gov,Y,true,true,true,true,true
+briumvi,Briumvi,Diabetic Foot Ulcers,https://cdc.gov,N,false,true,true,true,true
+xenoview,Xenoview,Diabetic Foot Ulcers,https://cdc.gov,A,false,true,true,true,true
+lunsumio,Lunsumio,Diabetic Foot Ulcers,https://cdc.gov,W,false,false,false,false,false
