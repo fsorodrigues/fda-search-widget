@@ -7,19 +7,15 @@ const mapOpening: FlagMap = new Map([
 ]);
 
 const mapBlinding: FlagMap = new Map([
-  [true, "Testing was blinded"],
   [false, "Testing was not blinded"],
 ]);
 const mapReplication: FlagMap = new Map([
-  [true, "Testing was replicated"],
   [false, "Testing was not replicated"],
 ]);
 const mapControl: FlagMap = new Map([
-  [true, "Control arm present"],
   [false, "Control arm not present"],
 ]);
 const mapClinical: FlagMap = new Map([
-  [true, "Clinical"],
   [false, "Surrogate instead of clinical"],
 ]);
 

@@ -11,22 +11,28 @@
   // properties
   export let properties: (keyof DataRow)[];
   export let value: DataRow;
+
+  function getValue(f: string): string {
+    return mapReasons.get(f)!.get(false)!;
+  }
 </script>
 
-<div class="row">
-  <div class="opening">
-    Reasons testing was <span
-      >{mapOpening.get(value.flag_evidence)}</span
-    >
-  </div>
-  <div class="reasons">
-    {#each properties.filter((d) => d !== "flag_evidence") as flag, i}
-      {@const mapper = mapReasons.get(flag)}
-      <span class="flag flag-{i}">{mapper.get(value[flag])}</span
+{#if !value.flag_evidence}
+  <div class="row">
+    <div class="opening">
+      Reasons testing was <span
+        >{mapOpening.get(value.flag_evidence)}</span
       >
-    {/each}
+    </div>
+    <div class="reasons">
+      {#each properties.filter((d) => d !== "flag_evidence") as flag, i}
+        {#if !value[flag]}
+          <span class="flag flag-{i}">{getValue(flag)}</span>
+        {/if}
+      {/each}
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .opening {
