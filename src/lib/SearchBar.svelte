@@ -100,6 +100,12 @@
         <X />
       </div>
     {/if}
+    {#if searching && $searchStore.showSuggestions}
+      <div class="suggestions">
+        {#if $searchStore.filtered.total && $searchStore.filtered.total > 0}
+        {/if}
+      </div>
+    {/if}
   </div>
   {#if searching}
     <div class="suggestions">
