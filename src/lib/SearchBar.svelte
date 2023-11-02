@@ -103,30 +103,28 @@
     {#if searching && $searchStore.showSuggestions}
       <div class="suggestions">
         {#if $searchStore.filtered.total && $searchStore.filtered.total > 0}
+          {#each $searchStore.filtered as option, i}
+            <div
+              class="option"
+              class:highlight={i === suggestedIndex}
+              on:click={() => {
+                $searchStore.selected = option.obj;
+                $searchStore.search = option.target;
+                searching = false;
+              }}
+              on:keydown={() => console.log(option.target)}
+              tabindex="0"
+              role="button"
+            >
+              <span>{i} {option.obj.drug}</span>
+            </div>
+          {/each}
+        {:else}
+          <span>no results</span>
         {/if}
       </div>
     {/if}
   </div>
-  {#if searching}
-    <div class="suggestions">
-      {#each $searchStore.filtered as option, i}
-        <div
-          class="option"
-          class:highlight={i === suggestedIndex}
-          on:click={() => {
-            $searchStore.selected = option.obj;
-            $searchStore.search = option.target;
-            searching = false;
-          }}
-          on:keydown={() => console.log(option.target)}
-          tabindex="0"
-          role="button"
-        >
-          <span>{i} {option.obj.drug}</span>
-        </div>
-      {/each}
-    </div>
-  {/if}
 </div>
 
 <style>
