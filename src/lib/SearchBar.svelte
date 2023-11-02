@@ -11,6 +11,9 @@
   // import searcher
   import { searcher, finder } from "../utils/searcher";
 
+  // import components
+  import Option from "./Option.svelte";
+
   // import interface
   import type { Data, DataRow } from "../types/data";
   import type { Unsubscriber } from "svelte/store";
@@ -104,20 +107,16 @@
       <div class="suggestions">
         {#if $searchStore.filtered.total && $searchStore.filtered.total > 0}
           {#each $searchStore.filtered as option, i}
-            <div
-              class="option"
-              class:highlight={i === suggestedIndex}
-              on:click={() => {
+            <Option
+              highlight={i === suggestedIndex}
+              onClick={() => {
                 $searchStore.selected = option.obj;
                 $searchStore.search = option.target;
                 searching = false;
+                document.activeElement.blur();
               }}
-              on:keydown={() => console.log(option.target)}
-              tabindex="0"
-              role="button"
-            >
-              <span>{i} {option.obj.drug}</span>
-            </div>
+              {option}
+            />
           {/each}
         {:else}
           <span>no results</span>
