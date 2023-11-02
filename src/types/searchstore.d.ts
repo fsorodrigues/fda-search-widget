@@ -5,4 +5,5 @@ export interface SearchStoreModel<
   filtered: T[];
   selected: T | null;
   search: string;
+  showSuggestions: boolean;
 }
