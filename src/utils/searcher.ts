@@ -7,17 +7,22 @@
 import fuzzysort from "fuzzysort";
 
 // import types
-import type { Data } from "../types/data";
+import type { Data, DataRow } from "../types/data";
+import type { SearchStoreModel } from "../types/searchstore";
 
-function searcher(array: Data): any {
+function searcher(array: Data): Data {
   // use fuzzysort to prepare data for fuzzy searching
-  return array.map((d) => ({
-    ...d,
-    prepared: fuzzysort.prepare(d.drug),
-  }));
+  const preparedData: Data = array;
+  preparedData.forEach((d: DataRow, i: number) => {
+    preparedData[i] = {
+      ...d,
+      prepared: fuzzysort.prepare(d.drug),
+    };
+  });
+  return preparedData;
 }
 
-function finder(store: any) {
+function finder(store: SearchStoreModel<Data>): void {
   const searchTerm = store.search;
   if (searchTerm.length > 2) {
     store.filtered = fuzzysort.go(searchTerm, store.data, {

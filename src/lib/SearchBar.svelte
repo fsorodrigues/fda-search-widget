@@ -13,15 +13,15 @@
 
   // import interface
   import type { Data, DataRow } from "../types/data";
+  import type { Unsubscriber } from "svelte/store";
 
   export let data: Data;
   export let placeholder: string = "Search...";
   export let selected: DataRow;
 
   const searchStore: any = createSearchStore(searcher(data));
-  const unsubscribe = searchStore.subscribe((d: any) =>
-    finder(d)
-  );
+  const unsubscribe: Unsubscriber =
+    searchStore.subscribe(finder);
 
   onDestroy(() => {
     unsubscribe();
