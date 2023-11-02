@@ -148,6 +148,8 @@
   .suggestions {
     position: absolute;
     top: var(--search-bar-height);
+    width: 100%;
+    background-color: #fff;
   }
 
   .option {
