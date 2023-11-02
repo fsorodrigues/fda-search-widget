@@ -64,6 +64,7 @@
   <div class="search-bar">
     <input
       id="search-input"
+      class:hasSelected={selected}
       aria-label="Search"
       type="text"
       {placeholder}
@@ -87,6 +88,7 @@
           $searchStore.search =
             $searchStore.filtered[suggestedIndex].target;
           searching = false;
+          document.activeElement.blur();
         }
       }}
     />
@@ -127,6 +129,10 @@
 </div>
 
 <style>
+  .search {
+    margin-bottom: 10px;
+  }
+
   .search-bar {
     --search-bar-height: 35px;
     position: relative;
@@ -135,6 +141,25 @@
   .search-bar input {
     height: var(--search-bar-height);
     width: 100%;
+    border: 1px solid black;
+    border-radius: 0;
+    position: relative;
+    z-index: 15;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .search-bar input:focus,
+  .search-bar input:focus-visible {
+    outline-style: solid;
+    outline-width: 1pt;
+    outline-offset: -1px;
+    outline-color: salmon;
+  }
+
+  .search-bar .hasSelected {
+    border: none;
+    border-bottom: 1px solid salmon;
   }
 
   .search-bar .reset {
@@ -142,20 +167,14 @@
     top: 50%;
     transform: translateY(-50%);
     right: 2px;
+    z-index: 20;
   }
 
   .suggestions {
     position: absolute;
-    top: var(--search-bar-height);
+    top: calc(var(--search-bar-height) - 1px);
     width: 100%;
     background-color: #fff;
-  }
-
-  .option {
-    background-color: #fff;
-  }
-
-  .highlight {
-    background-color: #f5f5f5;
+    z-index: 10;
   }
 </style>
