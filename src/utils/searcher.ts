@@ -25,6 +25,10 @@ function finder(store: any) {
       limit: 5,
       threshold: -10000,
     });
+    store.showSuggestions = true;
+  } else {
+    store.filtered = [];
+    store.showSuggestions = false;
   }
 }
 
