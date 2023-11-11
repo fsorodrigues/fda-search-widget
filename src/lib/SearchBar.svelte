@@ -121,7 +121,10 @@
             />
           {/each}
         {:else}
-          <span>no results</span>
+          <span
+            >No results. Only drugs approved between 2013-2022
+            are listed.</span
+          >
         {/if}
       </div>
     {/if}
