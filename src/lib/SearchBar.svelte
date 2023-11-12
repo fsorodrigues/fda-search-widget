@@ -141,7 +141,13 @@
       </div>
     {/if}
   </div>
-  <div class="submit-button">
+  <div
+    class="submit-button"
+    on:click={keyDown}
+    on:keydown={keyDown}
+    role="button"
+    tabindex="0"
+  >
     <span>➔</span>
   </div>
 </div>
