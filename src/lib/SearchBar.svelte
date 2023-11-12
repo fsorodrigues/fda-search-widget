@@ -11,17 +11,20 @@
   // import searcher
   import { searcher, finder } from "../utils/searcher";
 
+  // import components
+  import Option from "./Option.svelte";
+
   // import interface
   import type { Data, DataRow } from "../types/data";
+  import type { Unsubscriber } from "svelte/store";
 
   export let data: Data;
   export let placeholder: string = "Search...";
   export let selected: DataRow;
 
   const searchStore: any = createSearchStore(searcher(data));
-  const unsubscribe = searchStore.subscribe((d: any) =>
-    finder(d)
-  );
+  const unsubscribe: Unsubscriber =
+    searchStore.subscribe(finder);
 
   onDestroy(() => {
     unsubscribe();
@@ -61,6 +64,7 @@
   <div class="search-bar">
     <input
       id="search-input"
+      class:hasSelected={selected}
       aria-label="Search"
       type="text"
       {placeholder}
@@ -84,6 +88,7 @@
           $searchStore.search =
             $searchStore.filtered[suggestedIndex].target;
           searching = false;
+          document.activeElement.blur();
         }
       }}
     />
@@ -100,30 +105,37 @@
         <X />
       </div>
     {/if}
+    {#if searching && $searchStore.showSuggestions}
+      <div class="suggestions">
+        {#if $searchStore.filtered.total && $searchStore.filtered.total > 0}
+          {#each $searchStore.filtered as option, i}
+            <Option
+              highlight={i === suggestedIndex}
+              onClick={() => {
+                $searchStore.selected = option.obj;
+                $searchStore.search = option.target;
+                searching = false;
+                document.activeElement.blur();
+              }}
+              {option}
+            />
+          {/each}
+        {:else}
+          <span
+            >No results. Only drugs approved between 2013-2022
+            are listed.</span
+          >
+        {/if}
+      </div>
+    {/if}
   </div>
-  {#if searching}
-    <div class="suggestions">
-      {#each $searchStore.filtered as option, i}
-        <div
-          class="option"
-          class:highlight={i === suggestedIndex}
-          on:click={() => {
-            $searchStore.selected = option.obj;
-            $searchStore.search = option.target;
-            searching = false;
-          }}
-          on:keydown={() => console.log(option.target)}
-          tabindex="0"
-          role="button"
-        >
-          <span>{i} {option.obj.drug}</span>
-        </div>
-      {/each}
-    </div>
-  {/if}
 </div>
 
 <style>
+  .search {
+    margin-bottom: 10px;
+  }
+
   .search-bar {
     --search-bar-height: 35px;
     position: relative;
@@ -132,6 +144,25 @@
   .search-bar input {
     height: var(--search-bar-height);
     width: 100%;
+    border: 1px solid black;
+    border-radius: 0;
+    position: relative;
+    z-index: 15;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .search-bar input:focus,
+  .search-bar input:focus-visible {
+    outline-style: solid;
+    outline-width: 1pt;
+    outline-offset: -1px;
+    outline-color: salmon;
+  }
+
+  .search-bar .hasSelected {
+    border: none;
+    border-bottom: 1px solid salmon;
   }
 
   .search-bar .reset {
@@ -139,18 +170,14 @@
     top: 50%;
     transform: translateY(-50%);
     right: 2px;
+    z-index: 20;
   }
 
   .suggestions {
     position: absolute;
-    top: var(--search-bar-height);
-  }
-
-  .option {
+    top: calc(var(--search-bar-height) - 1px);
+    width: 100%;
     background-color: #fff;
-  }
-
-  .highlight {
-    background-color: #f5f5f5;
+    z-index: 10;
   }
 </style>

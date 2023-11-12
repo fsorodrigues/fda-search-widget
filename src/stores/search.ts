@@ -16,6 +16,7 @@ export const createSearchStore = <
     filtered: [],
     selected: null,
     search: "",
+    showSuggestions: false,
   });
 
   return {
