@@ -14,10 +14,13 @@
   import Warning from "./lib/Warning.svelte";
   import Testing from "./lib/Testing.svelte";
   import Reasons from "./lib/Reasons.svelte";
+  import Reset from "./lib/Reset.svelte";
 
   // declare variables
   let data: Data;
   let selected: DataRow;
+  let searchStore: any;
+  let suggestedIndex: number;
   let reasonProperties: (keyof DataRow)[] = [
     "flag_blinding",
     "flag_replication",
@@ -41,7 +44,13 @@
     <p>Look up drugs approved from 2013-22</p>
   {/if}
   {#if data}
-    <SearchBar {data} placeholder="Drug name" bind:selected />
+    <SearchBar
+      {data}
+      placeholder="Drug name"
+      bind:selected
+      bind:searchStore
+      bind:suggestedIndex
+    />
   {:else}
     <p>Loading...</p>
   {/if}
@@ -52,6 +61,7 @@
       <Warning value={selected.black_box} />
       <Testing value={selected.flag_evidence} />
       <Reasons value={selected} properties={reasonProperties} />
+      <Reset {searchStore} {suggestedIndex}></Reset>
     {/if}
   </div>
 </div>
