@@ -136,12 +136,14 @@
 
 <style>
   .search {
+    --search-bar-height: 35px;
+    display: flex;
     margin-bottom: 10px;
   }
 
   .search-bar {
-    --search-bar-height: 35px;
     position: relative;
+    flex-grow: 1;
   }
 
   .search-bar input {
