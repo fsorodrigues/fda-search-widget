@@ -39,7 +39,7 @@
   >
   <p>Look up drugs approved from 2013-22</p>
   {#if data}
-    <SearchBar {data} placeholder="Search..." bind:selected />
+    <SearchBar {data} placeholder="Drug name" bind:selected />
   {:else}
     <p>Loading...</p>
   {/if}

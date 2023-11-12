@@ -44,15 +44,50 @@
     setIndex(0);
     setFocusToTextBox();
   }
+
   function arrowDown() {
     suggestedIndex++;
     if (suggestedIndex >= $searchStore.filtered.length)
       setIndex(0);
   }
+
   function arrowUp() {
     suggestedIndex--;
     if (suggestedIndex < 0)
       setIndex($searchStore.filtered.length - 1);
+  }
+
+  function keyDown(ev: KeyboardEvent) {
+    if (ev.key === "Escape") clearSearch();
+    if (ev.key === "ArrowDown") {
+      ev.preventDefault();
+      arrowDown();
+    }
+    if (ev.key === "ArrowUp") {
+      ev.preventDefault();
+      arrowUp();
+    }
+    if (ev.key === "Enter") {
+      $searchStore.selected =
+        $searchStore.filtered[suggestedIndex].obj;
+      $searchStore.search =
+        $searchStore.filtered[suggestedIndex].target;
+      searching = false;
+      (ev.target as HTMLElement).blur();
+    }
+  }
+
+  function onClick({
+    obj,
+    target,
+  }: {
+    obj: DataRow;
+    target: string;
+  }) {
+    $searchStore.selected = obj;
+    $searchStore.search = target;
+    searching = false;
+    (document.activeElement as HTMLElement).blur();
   }
 
   $: selected = $searchStore.selected;
@@ -72,25 +107,7 @@
       on:input={() => {
         searching = true;
       }}
-      on:keydown={(ev) => {
-        if (ev.key === "Escape") clearSearch();
-        if (ev.key === "ArrowDown") {
-          ev.preventDefault();
-          arrowDown();
-        }
-        if (ev.key === "ArrowUp") {
-          ev.preventDefault();
-          arrowUp();
-        }
-        if (ev.key === "Enter") {
-          $searchStore.selected =
-            $searchStore.filtered[suggestedIndex].obj;
-          $searchStore.search =
-            $searchStore.filtered[suggestedIndex].target;
-          searching = false;
-          document.activeElement.blur();
-        }
-      }}
+      on:keydown={keyDown}
     />
     {#if $searchStore.search !== ""}
       <div
@@ -111,12 +128,7 @@
           {#each $searchStore.filtered as option, i}
             <Option
               highlight={i === suggestedIndex}
-              onClick={() => {
-                $searchStore.selected = option.obj;
-                $searchStore.search = option.target;
-                searching = false;
-                document.activeElement.blur();
-              }}
+              onClick={() => onClick(option)}
               {option}
             />
           {/each}
@@ -129,16 +141,27 @@
       </div>
     {/if}
   </div>
+  <div
+    class="submit-button"
+    on:click={keyDown}
+    on:keydown={keyDown}
+    role="button"
+    tabindex="0"
+  >
+    <span>➔</span>
+  </div>
 </div>
 
 <style>
   .search {
+    --search-bar-height: 35px;
+    display: flex;
     margin-bottom: 10px;
   }
 
   .search-bar {
-    --search-bar-height: 35px;
     position: relative;
+    flex-grow: 1;
   }
 
   .search-bar input {
@@ -171,6 +194,18 @@
     transform: translateY(-50%);
     right: 2px;
     z-index: 20;
+  }
+
+  .submit-button {
+    width: var(--search-bar-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0e75a5;
+    border: 1pt solid #042e49;
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
   }
 
   .suggestions {
