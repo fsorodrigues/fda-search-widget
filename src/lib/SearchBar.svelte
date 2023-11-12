@@ -17,7 +17,6 @@
   // import interface
   import type { Data, DataRow } from "../types/data";
   import type { Unsubscriber } from "svelte/store";
-  import type { MouseEventHandler } from "svelte/elements";
 
   export let data: Data;
   export let placeholder: string = "Search...";
