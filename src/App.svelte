@@ -14,6 +14,7 @@
   import Warning from "./lib/Warning.svelte";
   import Testing from "./lib/Testing.svelte";
   import Reasons from "./lib/Reasons.svelte";
+  import Reset from "./lib/Reset.svelte";
 
   // declare variables
   let data: Data;
@@ -52,6 +53,7 @@
       <Warning value={selected.black_box} />
       <Testing value={selected.flag_evidence} />
       <Reasons value={selected} properties={reasonProperties} />
+      <Reset {searchStore} {suggestedIndex}></Reset>
     {/if}
   </div>
 </div>
