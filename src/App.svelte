@@ -53,6 +53,7 @@
 <style>
   .widget {
     border-radius: 3%;
+    background-color: var(--background-color);
     padding: 30px;
   }
   .content {
