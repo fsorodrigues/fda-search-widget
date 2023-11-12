@@ -129,6 +129,9 @@
       </div>
     {/if}
   </div>
+  <div class="submit-button">
+    <span>➔</span>
+  </div>
 </div>
 
 <style>
