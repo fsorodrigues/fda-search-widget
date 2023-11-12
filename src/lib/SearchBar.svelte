@@ -21,8 +21,11 @@
   export let data: Data;
   export let placeholder: string = "Search...";
   export let selected: DataRow;
+  export let searchStore: any = createSearchStore(
+    searcher(data)
+  );
+  export let suggestedIndex: number = 0;
 
-  const searchStore: any = createSearchStore(searcher(data));
   const unsubscribe: Unsubscriber =
     searchStore.subscribe(finder);
 
@@ -41,6 +44,7 @@
   function clearSearch() {
     $searchStore.search = "";
     $searchStore.filtered = [];
+    $searchStore.selected = null;
     setIndex(0);
     setFocusToTextBox();
   }
@@ -57,6 +61,14 @@
       setIndex($searchStore.filtered.length - 1);
   }
 
+  function setSelected(): void {
+    $searchStore.selected =
+      $searchStore.filtered[suggestedIndex].obj;
+    $searchStore.search =
+      $searchStore.filtered[suggestedIndex].target;
+    searching = false;
+  }
+
   function keyDown(ev: KeyboardEvent) {
     if (ev.key === "Escape") clearSearch();
     if (ev.key === "ArrowDown") {
@@ -68,31 +80,18 @@
       arrowUp();
     }
     if (ev.key === "Enter") {
-      $searchStore.selected =
-        $searchStore.filtered[suggestedIndex].obj;
-      $searchStore.search =
-        $searchStore.filtered[suggestedIndex].target;
-      searching = false;
+      setSelected();
       (ev.target as HTMLElement).blur();
     }
   }
 
-  function onClick({
-    obj,
-    target,
-  }: {
-    obj: DataRow;
-    target: string;
-  }) {
-    $searchStore.selected = obj;
-    $searchStore.search = target;
-    searching = false;
+  function onClick() {
+    setSelected();
     (document.activeElement as HTMLElement).blur();
   }
 
   $: selected = $searchStore.selected;
   $: searching = false;
-  $: suggestedIndex = 0;
 </script>
 
 <div class="search">
@@ -128,7 +127,7 @@
           {#each $searchStore.filtered as option, i}
             <Option
               highlight={i === suggestedIndex}
-              onClick={() => onClick(option)}
+              {onClick}
               {option}
             />
           {/each}
@@ -143,7 +142,8 @@
   </div>
   <div
     class="submit-button"
-    on:click={keyDown}
+    class:hasSelected={selected}
+    on:click={onClick}
     on:keydown={keyDown}
     role="button"
     tabindex="0"
@@ -180,12 +180,17 @@
     outline-style: solid;
     outline-width: 1pt;
     outline-offset: -1px;
-    outline-color: salmon;
+    outline-color: #999999;
   }
 
   .search-bar .hasSelected {
     border: none;
-    border-bottom: 1px solid salmon;
+    border-bottom: 1px solid #999;
+    background: none;
+    font-size: 1.3em;
+    font-weight: 600;
+    padding-bottom: 10px;
+    height: auto;
   }
 
   .search-bar .reset {
@@ -206,6 +211,10 @@
     color: #fff;
     font-weight: 600;
     font-size: 20px;
+  }
+
+  .submit-button.hasSelected {
+    display: none;
   }
 
   .suggestions {
