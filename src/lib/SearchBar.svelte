@@ -140,6 +140,7 @@
   </div>
   <div
     class="submit-button"
+    class:hasSelected={selected}
     on:click={onClick}
     on:keydown={keyDown}
     role="button"
@@ -183,6 +184,11 @@
   .search-bar .hasSelected {
     border: none;
     border-bottom: 1px solid #999;
+    background: none;
+    font-size: 1.3em;
+    font-weight: 600;
+    padding-bottom: 10px;
+    height: auto;
   }
 
   .search-bar .reset {
@@ -203,6 +209,10 @@
     color: #fff;
     font-weight: 600;
     font-size: 20px;
+  }
+
+  .submit-button.hasSelected {
+    display: none;
   }
 
   .suggestions {
