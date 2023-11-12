@@ -51,6 +51,10 @@
 </div>
 
 <style>
+  .widget {
+    border-radius: 3%;
+    padding: 30px;
+  }
   .content {
     display: flex;
     flex-direction: column;
