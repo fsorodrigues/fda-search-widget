@@ -17,6 +17,7 @@
   // import interface
   import type { Data, DataRow } from "../types/data";
   import type { Unsubscriber } from "svelte/store";
+  import type { MouseEventHandler } from "svelte/elements";
 
   export let data: Data;
   export let placeholder: string = "Search...";
@@ -57,6 +58,14 @@
       setIndex($searchStore.filtered.length - 1);
   }
 
+  function setSelected(): void {
+    $searchStore.selected =
+      $searchStore.filtered[suggestedIndex].obj;
+    $searchStore.search =
+      $searchStore.filtered[suggestedIndex].target;
+    searching = false;
+  }
+
   function keyDown(ev: KeyboardEvent) {
     if (ev.key === "Escape") clearSearch();
     if (ev.key === "ArrowDown") {
@@ -68,25 +77,13 @@
       arrowUp();
     }
     if (ev.key === "Enter") {
-      $searchStore.selected =
-        $searchStore.filtered[suggestedIndex].obj;
-      $searchStore.search =
-        $searchStore.filtered[suggestedIndex].target;
-      searching = false;
+      setSelected();
       (ev.target as HTMLElement).blur();
     }
   }
 
-  function onClick({
-    obj,
-    target,
-  }: {
-    obj: DataRow;
-    target: string;
-  }) {
-    $searchStore.selected = obj;
-    $searchStore.search = target;
-    searching = false;
+  function onClick() {
+    setSelected();
     (document.activeElement as HTMLElement).blur();
   }
 
@@ -128,7 +125,7 @@
           {#each $searchStore.filtered as option, i}
             <Option
               highlight={i === suggestedIndex}
-              onClick={() => onClick(option)}
+              {onClick}
               {option}
             />
           {/each}
@@ -143,7 +140,7 @@
   </div>
   <div
     class="submit-button"
-    on:click={keyDown}
+    on:click={onClick}
     on:keydown={keyDown}
     role="button"
     tabindex="0"
@@ -180,12 +177,12 @@
     outline-style: solid;
     outline-width: 1pt;
     outline-offset: -1px;
-    outline-color: salmon;
+    outline-color: #999999;
   }
 
   .search-bar .hasSelected {
     border: none;
-    border-bottom: 1px solid salmon;
+    border-bottom: 1px solid #999;
   }
 
   .search-bar .reset {
