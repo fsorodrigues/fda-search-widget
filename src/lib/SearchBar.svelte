@@ -42,6 +42,7 @@
   function clearSearch() {
     $searchStore.search = "";
     $searchStore.filtered = [];
+    $searchStore.selected = null;
     setIndex(0);
     setFocusToTextBox();
   }
