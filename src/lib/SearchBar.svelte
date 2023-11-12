@@ -176,6 +176,18 @@
     z-index: 20;
   }
 
+  .submit-button {
+    width: var(--search-bar-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0e75a5;
+    border: 1pt solid #042e49;
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
   .suggestions {
     position: absolute;
     top: calc(var(--search-bar-height) - 1px);
