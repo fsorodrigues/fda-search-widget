@@ -34,10 +34,12 @@
 </script>
 
 <div class="widget">
-  <label for="search-input" class="label"
-    >Was drug rigorously tested?</label
-  >
-  <p>Look up drugs approved from 2013-22</p>
+  {#if !hasSelected}
+    <label for="search-input" class="label"
+      >Was drug rigorously tested?</label
+    >
+    <p>Look up drugs approved from 2013-22</p>
+  {/if}
   {#if data}
     <SearchBar {data} placeholder="Drug name" bind:selected />
   {:else}
