@@ -55,6 +55,17 @@
 </div>
 
 <style>
+  .widget {
+    border-radius: 3%;
+    background-color: var(--background-color);
+    padding: 30px;
+  }
+
+  .label {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
