@@ -21,8 +21,11 @@
   export let data: Data;
   export let placeholder: string = "Search...";
   export let selected: DataRow;
+  export let searchStore: any = createSearchStore(
+    searcher(data)
+  );
+  export let suggestedIndex: number = 0;
 
-  const searchStore: any = createSearchStore(searcher(data));
   const unsubscribe: Unsubscriber =
     searchStore.subscribe(finder);
 
@@ -89,7 +92,6 @@
 
   $: selected = $searchStore.selected;
   $: searching = false;
-  $: suggestedIndex = 0;
 </script>
 
 <div class="search">
