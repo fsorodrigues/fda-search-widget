@@ -44,15 +44,50 @@
     setIndex(0);
     setFocusToTextBox();
   }
+
   function arrowDown() {
     suggestedIndex++;
     if (suggestedIndex >= $searchStore.filtered.length)
       setIndex(0);
   }
+
   function arrowUp() {
     suggestedIndex--;
     if (suggestedIndex < 0)
       setIndex($searchStore.filtered.length - 1);
+  }
+
+  function keyDown(ev: KeyboardEvent) {
+    if (ev.key === "Escape") clearSearch();
+    if (ev.key === "ArrowDown") {
+      ev.preventDefault();
+      arrowDown();
+    }
+    if (ev.key === "ArrowUp") {
+      ev.preventDefault();
+      arrowUp();
+    }
+    if (ev.key === "Enter") {
+      $searchStore.selected =
+        $searchStore.filtered[suggestedIndex].obj;
+      $searchStore.search =
+        $searchStore.filtered[suggestedIndex].target;
+      searching = false;
+      (ev.target as HTMLElement).blur();
+    }
+  }
+
+  function onClick({
+    obj,
+    target,
+  }: {
+    obj: DataRow;
+    target: string;
+  }) {
+    $searchStore.selected = obj;
+    $searchStore.search = target;
+    searching = false;
+    (document.activeElement as HTMLElement).blur();
   }
 
   $: selected = $searchStore.selected;
@@ -72,25 +107,7 @@
       on:input={() => {
         searching = true;
       }}
-      on:keydown={(ev) => {
-        if (ev.key === "Escape") clearSearch();
-        if (ev.key === "ArrowDown") {
-          ev.preventDefault();
-          arrowDown();
-        }
-        if (ev.key === "ArrowUp") {
-          ev.preventDefault();
-          arrowUp();
-        }
-        if (ev.key === "Enter") {
-          $searchStore.selected =
-            $searchStore.filtered[suggestedIndex].obj;
-          $searchStore.search =
-            $searchStore.filtered[suggestedIndex].target;
-          searching = false;
-          document.activeElement.blur();
-        }
-      }}
+      on:keydown={keyDown}
     />
     {#if $searchStore.search !== ""}
       <div
@@ -111,12 +128,7 @@
           {#each $searchStore.filtered as option, i}
             <Option
               highlight={i === suggestedIndex}
-              onClick={() => {
-                $searchStore.selected = option.obj;
-                $searchStore.search = option.target;
-                searching = false;
-                document.activeElement.blur();
-              }}
+              onClick={() => onClick(option)}
               {option}
             />
           {/each}
