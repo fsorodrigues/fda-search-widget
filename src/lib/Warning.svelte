@@ -16,6 +16,6 @@
 
 <style>
   .value {
-    background-color: green;
+    background-color: var(--jungle-green);
   }
 </style>

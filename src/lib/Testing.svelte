@@ -16,6 +16,6 @@
 
 <style>
   .value {
-    background-color: red;
+    background-color: var(--chilli-red);
   }
 </style>
