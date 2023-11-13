@@ -91,6 +91,9 @@
   }
 
   $: selected = $searchStore.selected;
+  $: hasSelected =
+    $searchStore.selected !== null &&
+    $searchStore.search !== undefined;
   $: searching = false;
 </script>
 
@@ -98,9 +101,10 @@
   <div class="search-bar">
     <input
       id="search-input"
-      class:hasSelected={selected}
+      class:hasSelected
       aria-label="Search"
       type="text"
+      readonly={hasSelected}
       {placeholder}
       bind:value={$searchStore.search}
       on:input={() => {
@@ -108,7 +112,7 @@
       }}
       on:keydown={keyDown}
     />
-    {#if $searchStore.search !== "" && !selected}
+    {#if $searchStore.search !== "" && !hasSelected}
       <div
         class="reset"
         on:click={clearSearch}
@@ -142,7 +146,7 @@
   </div>
   <div
     class="submit-button"
-    class:hasSelected={selected}
+    class:hasSelected
     on:click={onClick}
     on:keydown={keyDown}
     role="button"
