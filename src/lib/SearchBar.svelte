@@ -177,6 +177,9 @@
     z-index: 15;
     -webkit-appearance: textfield;
     appearance: textfield;
+    font-size: 1.1em;
+    font-weight: 400;
+    color: #999;
   }
 
   .search-bar input:focus,
@@ -184,7 +187,7 @@
     outline-style: solid;
     outline-width: 1pt;
     outline-offset: -1px;
-    outline-color: #999999;
+    outline-color: #999;
   }
 
   .search-bar .hasSelected {
@@ -195,6 +198,7 @@
     font-weight: 600;
     padding-bottom: 1rem;
     height: auto;
+    color: #000;
   }
 
   .search-bar .hasSelected:focus,
