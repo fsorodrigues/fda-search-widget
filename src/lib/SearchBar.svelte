@@ -70,7 +70,7 @@
   }
 
   function keyDown(ev: KeyboardEvent) {
-    if (ev.key === "Escape") clearSearch();
+    if (ev.key === "Escape" && !hasSelected) clearSearch();
     if (ev.key === "ArrowDown") {
       ev.preventDefault();
       arrowDown();
@@ -195,6 +195,11 @@
     font-weight: 600;
     padding-bottom: 1rem;
     height: auto;
+  }
+
+  .search-bar .hasSelected:focus,
+  .search-bar .hasSelected:focus-visible {
+    outline: none;
   }
 
   .search-bar .reset {
