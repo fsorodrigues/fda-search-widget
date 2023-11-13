@@ -42,6 +42,7 @@
     border-bottom: 1px solid #999;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .opening span {
@@ -52,7 +53,7 @@
   .reasons {
     grid-column: 1 / span last-line;
     grid-row: 2 / span 1;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
 
   .reasons .flag:after {
