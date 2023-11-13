@@ -37,5 +37,6 @@
     color: #fff;
     font-weight: 600;
     font-size: 1em;
+    margin-top: 10px;
   }
 </style>

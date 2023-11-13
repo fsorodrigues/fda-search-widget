@@ -70,7 +70,7 @@
   }
 
   function keyDown(ev: KeyboardEvent) {
-    if (ev.key === "Escape") clearSearch();
+    if (ev.key === "Escape" && !hasSelected) clearSearch();
     if (ev.key === "ArrowDown") {
       ev.preventDefault();
       arrowDown();
@@ -91,6 +91,9 @@
   }
 
   $: selected = $searchStore.selected;
+  $: hasSelected =
+    $searchStore.selected !== null &&
+    $searchStore.search !== undefined;
   $: searching = false;
 </script>
 
@@ -98,9 +101,10 @@
   <div class="search-bar">
     <input
       id="search-input"
-      class:hasSelected={selected}
+      class:hasSelected
       aria-label="Search"
       type="text"
+      readonly={hasSelected}
       {placeholder}
       bind:value={$searchStore.search}
       on:input={() => {
@@ -108,7 +112,7 @@
       }}
       on:keydown={keyDown}
     />
-    {#if $searchStore.search !== ""}
+    {#if $searchStore.search !== "" && !hasSelected}
       <div
         class="reset"
         on:click={clearSearch}
@@ -142,7 +146,7 @@
   </div>
   <div
     class="submit-button"
-    class:hasSelected={selected}
+    class:hasSelected
     on:click={onClick}
     on:keydown={keyDown}
     role="button"
@@ -173,6 +177,9 @@
     z-index: 15;
     -webkit-appearance: textfield;
     appearance: textfield;
+    font-size: 1.1em;
+    font-weight: 400;
+    color: #999;
   }
 
   .search-bar input:focus,
@@ -180,7 +187,7 @@
     outline-style: solid;
     outline-width: 1pt;
     outline-offset: -1px;
-    outline-color: #999999;
+    outline-color: #999;
   }
 
   .search-bar .hasSelected {
@@ -189,8 +196,14 @@
     background: none;
     font-size: 1.3em;
     font-weight: 600;
-    padding-bottom: 10px;
+    padding-bottom: 1rem;
     height: auto;
+    color: #000;
+  }
+
+  .search-bar .hasSelected:focus,
+  .search-bar .hasSelected:focus-visible {
+    outline: none;
   }
 
   .search-bar .reset {
