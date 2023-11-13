@@ -10,12 +10,12 @@
 </script>
 
 <div class="row">
-  <div class="label">Approved based on rigourous testing?</div>
-  <div class="value box">{mapper.get(value)}</div>
+  <div class="label">Minimal FDA standards met</div>
+  <div class="value box"><div>{mapper.get(value)}</div></div>
 </div>
 
 <style>
   .value {
-    background-color: red;
+    background-color: var(--chilli-red);
   }
 </style>

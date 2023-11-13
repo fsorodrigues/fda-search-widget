@@ -6,8 +6,6 @@
   export let highlight: boolean;
   export let onClick: Function;
   export let option: Result;
-
-  console.log();
 </script>
 
 <div
@@ -18,7 +16,6 @@
   tabindex="0"
   role="button"
 >
-  <!-- <span>{option.obj.drug}</span> -->
   <span>{@html fuzzysort.highlight(option, "<b>", "</b>")}</span>
 </div>
 
@@ -29,11 +26,13 @@
     padding: 0 2px;
     background-color: #fff;
     height: var(--search-bar-height);
-    border: 1px solid #fff;
   }
 
   .highlight {
-    /* background-color: #d3d3d3; */
-    border: 1px solid salmon;
+    background-color: #f1f1f2;
+  }
+
+  .highlight span {
+    text-decoration: underline;
   }
 </style>
