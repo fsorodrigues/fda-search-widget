@@ -2,8 +2,8 @@
 import type { FlagMap, MapMap } from "../types/mappers";
 
 const mapOpening: FlagMap = new Map([
-  [true, "rigorous"],
-  [false, "not rigorous"],
+  [true, "met"],
+  [false, "not met"],
 ]);
 
 const mapBlinding: FlagMap = new Map([

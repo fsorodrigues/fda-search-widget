@@ -20,7 +20,7 @@
 {#if !value.flag_evidence}
   <div class="row">
     <div class="opening">
-      Reasons testing was <span
+      Why minimal standards were <span
         >{mapOpening.get(value.flag_evidence)}</span
       >
     </div>
