@@ -10,8 +10,8 @@
 </script>
 
 <div class="row">
-  <div class="value box">{mapper.get(value)}</div>
   <div class="label">Minimal FDA standards met</div>
+  <div class="value box"><div>{mapper.get(value)}</div></div>
 </div>
 
 <style>

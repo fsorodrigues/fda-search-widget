@@ -11,7 +11,7 @@
 
 <div class="row">
   <div class="label">Black box warning</div>
-  <div class="value box">{mapper.get(value)}</div>
+  <div class="value box"><div>{mapper.get(value)}</div></div>
 </div>
 
 <style>

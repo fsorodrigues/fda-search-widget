@@ -108,7 +108,7 @@
       }}
       on:keydown={keyDown}
     />
-    {#if $searchStore.search !== ""}
+    {#if $searchStore.search !== "" && !selected}
       <div
         class="reset"
         on:click={clearSearch}
@@ -189,7 +189,7 @@
     background: none;
     font-size: 1.3em;
     font-weight: 600;
-    padding-bottom: 10px;
+    padding-bottom: 1rem;
     height: auto;
   }
 
