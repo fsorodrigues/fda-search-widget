@@ -39,7 +39,7 @@
 <div class="widget">
   {#if !hasSelected}
     <label for="search-input" class="label"
-      >Was drug rigorously tested?</label
+      >Was my drug rigorously tested?</label
     >
     <p class="subhead">Look up drugs approved from 2013-22</p>
   {/if}
@@ -74,7 +74,7 @@
   }
 
   .label {
-    font-size: 1.3em;
+    font-size: 1.15em;
     font-weight: bold;
   }
 
