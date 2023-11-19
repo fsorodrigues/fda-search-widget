@@ -1,6 +1,14 @@
 <script lang="ts">
   // import from node_modules
   import { onMount } from "svelte";
+  import {
+    slide,
+    fly,
+    type TransitionConfig,
+    type EasingFunction,
+    type SlideParams,
+  } from "svelte/transition";
+  import { quadOut } from "svelte/easing";
 
   // import util to load data
   import loadData from "./utils/load-data";
@@ -34,12 +42,27 @@
   });
 
   $: hasSelected = selected && selected.hasOwnProperty("drug");
+
+  function drawer(
+    _: HTMLElement,
+    { duration, easing }: SlideParams
+  ): TransitionConfig {
+    return {
+      delay: 50,
+      duration,
+      easing,
+      css: (_: number, u: number) =>
+        `transform: translateY(-${u * 100}%)`,
+    };
+  }
 </script>
 
 <div class="widget">
   <div class="spacer"></div>
   {#if !hasSelected}
     <div
+      in:slide={{ duration: 250, easing: quadOut }}
+      out:slide={{ duration: 100, easing: quadOut }}
     >
       <label for="search-input" class="label"
         >Was drug rigorously tested?</label
@@ -63,6 +86,8 @@
     {#if hasSelected}
       <div
         class="content"
+        in:drawer={{ duration: 500, easing: quadOut }}
+        out:slide={{ duration: 100, easing: quadOut }}
       >
         <Condition value={selected.treatment_condition} />
         <Warning value={selected.black_box} />
