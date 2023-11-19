@@ -61,7 +61,6 @@
 
   <div class="content-wrapper">
     {#if hasSelected}
-      <Reset {searchStore} {suggestedIndex}></Reset>
       <div
         class="content"
       >
@@ -72,6 +71,7 @@
           value={selected}
           properties={reasonProperties}
         />
+        <Reset {searchStore} bind:suggestedIndex></Reset>
       </div>
     {/if}
   </div>
