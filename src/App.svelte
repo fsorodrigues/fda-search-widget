@@ -59,7 +59,7 @@
     {#if hasSelected}
       <Condition value={selected.treatment_condition} />
       <Warning value={selected.black_box} />
-      <Testing value={selected.flag_evidence} />
+      <Testing value={selected.meets_standard} />
       <Reasons value={selected} properties={reasonProperties} />
       <Reset {searchStore} {suggestedIndex}></Reset>
     {/if}

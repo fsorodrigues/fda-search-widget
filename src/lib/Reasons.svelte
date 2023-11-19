@@ -13,19 +13,19 @@
   export let value: DataRow;
 
   function getValue(f: string): string {
-    return mapReasons.get(f)!.get(false)!;
+    return mapReasons.get(f)!.get(false) as string;
   }
 </script>
 
-{#if !value.flag_evidence}
+{#if !value.meets_standard}
   <div class="row">
     <div class="opening">
       Why minimal standards were <span
-        >{mapOpening.get(value.flag_evidence)}</span
+        >{mapOpening.get(value.meets_standard)}</span
       >
     </div>
     <div class="reasons">
-      {#each properties.filter((d) => d !== "flag_evidence") as flag, i}
+      {#each properties.filter((d) => d !== "meets_standard") as flag, i}
         {#if !value[flag]}
           <span class="flag flag-{i}">{getValue(flag)}</span>
         {/if}

@@ -6,7 +6,7 @@ interface DataRow {
   treatment_condition: string;
   url: string;
   black_box: string;
-  flag_evidence: boolean;
+  meets_standard: boolean;
   flag_blinding: boolean;
   flag_replication: boolean;
   flag_control: boolean;
