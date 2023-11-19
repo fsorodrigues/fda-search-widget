@@ -37,6 +37,7 @@
 </script>
 
 <div class="widget">
+  <div class="spacer"></div>
   {#if !hasSelected}
     <label for="search-input" class="label"
       >Was drug rigorously tested?</label
@@ -68,9 +69,19 @@
 
 <style>
   .widget {
+    --padding: 30px;
     border-radius: 3%;
     background-color: var(--background-color);
-    padding: 30px;
+    padding: 0 var(--padding) var(--padding) var(--padding);
+    position: relative;
+    z-index: 10;
+  }
+
+  .spacer {
+    height: var(--padding);
+    position: relative;
+    z-index: 20;
+    background-color: var(--background-color);
   }
 
   .label {
