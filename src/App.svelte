@@ -64,10 +64,9 @@
       in:slide={{ duration: 250, easing: quadOut }}
       out:slide={{ duration: 100, easing: quadOut }}
     >
-      <label for="search-input" class="label"
-        >Was drug rigorously tested?</label
-      >
-      <p>Look up drugs approved from 2013-22</p>
+    <label for="search-input" class="label"
+      >Was my drug rigorously tested?</label>
+    <p class="subhead">Look up drugs approved from 2013-22</p>
     </div>
   {/if}
   {#if data}
@@ -89,14 +88,11 @@
         in:drawer={{ duration: 500, easing: quadOut }}
         out:slide={{ duration: 100, easing: quadOut }}
       >
-        <Condition value={selected.treatment_condition} />
-        <Warning value={selected.black_box} />
-        <Testing value={selected.flag_evidence} />
-        <Reasons
-          value={selected}
-          properties={reasonProperties}
-        />
-        <Reset {searchStore} bind:suggestedIndex></Reset>
+      <Condition value={selected.treatment_condition} />
+      <Warning value={selected.black_box} />
+      <Testing value={selected.meets_standard} />
+      <Reasons value={selected} properties={reasonProperties} />
+      <Reset {searchStore} {suggestedIndex}></Reset>
       </div>
     {/if}
   </div>
@@ -120,12 +116,16 @@
   }
 
   .label {
-    font-size: 1.3em;
+    font-size: 1.15em;
     font-weight: bold;
   }
 
   .content-wrapper {
     overflow-y: hidden;
+  }
+
+  .subhead {
+    margin: 10px 0 15px 0;
   }
 
   .content {
