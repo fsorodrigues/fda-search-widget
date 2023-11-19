@@ -57,6 +57,7 @@
   {/if}
 
   <div class="content">
+  <div class="content-wrapper">
     {#if hasSelected}
       <Condition value={selected.treatment_condition} />
       <Warning value={selected.black_box} />
@@ -89,9 +90,15 @@
     font-weight: bold;
   }
 
+  .content-wrapper {
+    overflow-y: hidden;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    position: relative;
+    z-index: 5;
   }
 </style>
