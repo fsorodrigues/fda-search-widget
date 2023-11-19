@@ -41,7 +41,7 @@
     <label for="search-input" class="label"
       >Was drug rigorously tested?</label
     >
-    <p>Look up drugs approved from 2013-22</p>
+    <p class="subhead">Look up drugs approved from 2013-22</p>
   {/if}
   {#if data}
     <SearchBar
@@ -76,6 +76,10 @@
   .label {
     font-size: 1.3em;
     font-weight: bold;
+  }
+
+  .subhead {
+    margin: 10px 0 15px 0;
   }
 
   .content {
