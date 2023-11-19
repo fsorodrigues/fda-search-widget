@@ -39,10 +39,13 @@
 <div class="widget">
   <div class="spacer"></div>
   {#if !hasSelected}
-    <label for="search-input" class="label"
-      >Was drug rigorously tested?</label
+    <div
     >
-    <p>Look up drugs approved from 2013-22</p>
+      <label for="search-input" class="label"
+        >Was drug rigorously tested?</label
+      >
+      <p>Look up drugs approved from 2013-22</p>
+    </div>
   {/if}
   {#if data}
     <SearchBar
@@ -56,14 +59,20 @@
     <p>Loading...</p>
   {/if}
 
-  <div class="content">
   <div class="content-wrapper">
     {#if hasSelected}
-      <Condition value={selected.treatment_condition} />
-      <Warning value={selected.black_box} />
-      <Testing value={selected.flag_evidence} />
-      <Reasons value={selected} properties={reasonProperties} />
       <Reset {searchStore} {suggestedIndex}></Reset>
+      <div
+        class="content"
+      >
+        <Condition value={selected.treatment_condition} />
+        <Warning value={selected.black_box} />
+        <Testing value={selected.flag_evidence} />
+        <Reasons
+          value={selected}
+          properties={reasonProperties}
+        />
+      </div>
     {/if}
   </div>
 </div>
