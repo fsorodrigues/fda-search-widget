@@ -193,7 +193,7 @@
   .search-bar .hasSelected {
     border: none;
     border-bottom: 1px solid #999;
-    background-color: var(--background-color);
+    background-color: transparent;
     font-size: 1.3em;
     font-weight: 600;
     padding-bottom: 1rem;

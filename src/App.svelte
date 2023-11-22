@@ -102,8 +102,8 @@
   .widget {
     --padding: 30px;
     border-radius: 3%;
-    background-color: var(--background-color);
     padding: 0 var(--padding) var(--padding) var(--padding);
+    background-color: var(--background-color-rgba);
     position: relative;
     z-index: 10;
   }
