@@ -3,9 +3,7 @@
   import { onMount } from "svelte";
   import {
     slide,
-    fly,
     type TransitionConfig,
-    type EasingFunction,
     type SlideParams,
   } from "svelte/transition";
   import { quadOut } from "svelte/easing";
@@ -64,9 +62,10 @@
       in:slide={{ duration: 250, easing: quadOut }}
       out:slide={{ duration: 100, easing: quadOut }}
     >
-    <label for="search-input" class="label"
-      >Was my drug rigorously tested?</label>
-    <p class="subhead">Look up drugs approved from 2013-22</p>
+      <label for="search-input" class="label"
+        >Was my drug rigorously tested?</label
+      >
+      <p class="subhead">Look up drugs approved from 2013-22</p>
     </div>
   {/if}
   {#if data}
@@ -88,11 +87,14 @@
         in:drawer={{ duration: 500, easing: quadOut }}
         out:slide={{ duration: 100, easing: quadOut }}
       >
-      <Condition value={selected.treatment_condition} />
-      <Warning value={selected.black_box} />
-      <Testing value={selected.meets_standard} />
-      <Reasons value={selected} properties={reasonProperties} />
-      <Reset {searchStore} {suggestedIndex}></Reset>
+        <Condition value={selected.treatment_condition} />
+        <Warning value={selected.black_box} />
+        <Testing value={selected.meets_standard} />
+        <Reasons
+          value={selected}
+          properties={reasonProperties}
+        />
+        <Reset {searchStore} {suggestedIndex}></Reset>
       </div>
     {/if}
   </div>
