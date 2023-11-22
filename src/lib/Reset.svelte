@@ -39,4 +39,9 @@
     font-size: 1em;
     margin-top: 10px;
   }
+
+  .reset-button:hover {
+    cursor: pointer;
+    background-color: #5289d3;
+  }
 </style>
