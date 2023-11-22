@@ -195,7 +195,7 @@
     border-bottom: 1px solid #999;
     background-color: var(--background-color);
     font-size: 1.3em;
-    font-weight: 600;
+    font-weight: 800;
     padding-bottom: 1rem;
     height: auto;
     color: #000;
