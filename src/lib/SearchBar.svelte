@@ -196,10 +196,6 @@
     background-color: transparent;
     font-size: 1.3em;
     font-weight: 800;
-    padding-bottom: 1rem;
-    font-weight: 600;
-    padding-bottom: 1rem;
-    font-weight: 600;
     padding-bottom: 0.5rem;
     height: auto;
     color: #000;
