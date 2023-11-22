@@ -48,12 +48,12 @@
   .opening span {
     color: #fff;
     background-color: var(--chilli-red);
+    padding: 0 4px;
   }
 
   .reasons {
     grid-column: 1 / span last-line;
     grid-row: 2 / span 1;
-    /* margin-bottom: 20px; */
   }
 
   .reasons .flag:after {
