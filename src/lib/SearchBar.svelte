@@ -226,6 +226,11 @@
     font-size: 20px;
   }
 
+  .submit-button:hover {
+    cursor: pointer;
+    background-color: #5289d3;
+  }
+
   .submit-button.hasSelected {
     display: none;
   }
