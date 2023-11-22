@@ -58,7 +58,6 @@
 </script>
 
 <div class="widget">
-  <div class="spacer"></div>
   {#if !hasSelected}
     <div
       in:slide={{ duration: 250, easing: quadOut }}
@@ -102,17 +101,10 @@
   .widget {
     --padding: 30px;
     border-radius: 3%;
-    padding: 0 var(--padding) var(--padding) var(--padding);
     background-color: var(--background-color-rgba);
+    padding: var(--padding);
     position: relative;
     z-index: 10;
-  }
-
-  .spacer {
-    height: var(--padding);
-    position: relative;
-    z-index: 20;
-    background-color: var(--background-color);
   }
 
   .label {
