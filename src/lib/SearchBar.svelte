@@ -193,10 +193,14 @@
   .search-bar .hasSelected {
     border: none;
     border-bottom: 1px solid #999;
-    background-color: var(--background-color);
+    background-color: transparent;
     font-size: 1.3em;
     font-weight: 800;
     padding-bottom: 1rem;
+    font-weight: 600;
+    padding-bottom: 1rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
     height: auto;
     color: #000;
   }
@@ -224,6 +228,11 @@
     color: #fff;
     font-weight: 600;
     font-size: 20px;
+  }
+
+  .submit-button:hover {
+    cursor: pointer;
+    background-color: #5289d3;
   }
 
   .submit-button.hasSelected {
