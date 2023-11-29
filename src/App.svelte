@@ -36,7 +36,7 @@
 
   // on mount, load data from csv
   onMount(async () => {
-    data = await loadData("/assets/data.csv");
+    data = await loadData("assets/data.csv");
   });
 
   $: hasSelected = selected && selected.hasOwnProperty("drug");
